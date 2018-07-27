@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+    float Delta= 0.0000005,xmax, xmin, increment;
+
+    float a,b,c,d,e;
+
+    printf("Input the values of the 5 coefficients a0,a1,a2,a3,a4 to construct a 4th order\npolynomial equation,\n\nBegin with a0:");
+
+    scanf("%f", &a);
+
+    printf("           a1:");
+
+    scanf("%f", &b);
+
+    printf("           a2:");
+
+    scanf("%f", &c);
+
+    printf("           a3:");
+
+    scanf("%f", &d);
+
+    printf("           a4:");
+
+    scanf("%f", &e);
+
+    printf("You have constructed the following polynomial:\n\n");
+
+    printf("%.f",a);
+    printf(" + %.fx",b);
+    printf(" + %.fx^2",c);
+    printf(" + %.fx^3",d);
+    printf(" + %.fx^4\n",e);
+
+    printf("\n\nPlease input a minimum value of x(0) to start root searching on\n");
+    scanf("%f", &xmin);
+    printf("\n\nPlease input a maximum value of x(0) to stop root searching on\n");
+    scanf("%f", &xmax);
+    printf("\n\nPlease input an interval between the minimum and maximum values of x(0)\n");
+    scanf("%f", &increment);
+
+
+
+    float fxi, ffxi, FFxi;
+    float x0, xi, xii;
+    int iteration = 0, iteration2 = 0;
+    int step = (xmax-xmin)/(increment);
+    float itr[step];
+    float xx[step];
+
+    x0=xmin;
+
+
+    while(x0 < xmax)
+    {
+        iteration = 1;
+        iteration2 = iteration2 + 1;
+        fxi = a+(b*x0)+(c*pow(x0,2))+(d*pow(x0,3))+(e*pow(x0,4));
+        ffxi = b+(2*c*x0)+(3*d*pow(x0,2))+(4*e*pow(x0,3));
+        FFxi = (fxi/ffxi);
+        xii = x0 - FFxi;
+        xi = x0;
+
+
+
+
+        while(fabs(xii-xi) > 0.000005)
+        {
+            iteration =iteration + 1;
+
+            xi = xii;
+            fxi = a+(b*xi)+(c*pow(xi,2))+(d*pow(xi,3))+(e*pow(xi,4));
+            ffxi = b+(2*c*xi)+(3*d*pow(xi,2))+(4*e*pow(xi,3));
+            FFxi = (fxi/ffxi);
+            xii = xi - FFxi;
+
+
+        }
+        x0=x0+increment;
+
+
+
+
+        itr[iteration2]=iteration;
+        xx[iteration2]=xii;
+
+
+
+
+    }
+
+    for (iteration2=0;iteration2<step+1;iteration2++)
+    {
+        printf("\nRoot: %f         ", xx[iteration2]);
+        printf("# of iterations: %f", itr[iteration2]);
+
+
+    }
+
+
+
+
+
+
+    return 0;
+
+}
